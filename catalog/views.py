@@ -6,12 +6,12 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Employee, Product, Brand
-from .forms import (EmployeeCreationForm, EmployeeBrandUpdateForm, ProductForm,
+from .forms import (EmployeeCreationForm, ProductForm, EmployeeNumberUpdateForm,
                     ProductSearchForm, EmployeeSearchForm, BrandSearchForm)
 
 
 @login_required
-def index(request):
+def index(request, num_brands=None):
     """View function for the home page of the site."""
 
     num_employees = Employee.objects.count()
@@ -143,9 +143,9 @@ class EmployeeCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = EmployeeCreationForm
 
 
-class EmployeeLicenseUpdateView(LoginRequiredMixin, generic.UpdateView):
+class EmployeeNumberUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Employee
-    form_class = EmployeeBrandUpdateForm
+    form_class = EmployeeNumberUpdateForm
     success_url = reverse_lazy("catalog:employee-list")
 
 

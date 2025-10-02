@@ -10,13 +10,12 @@ from .views import (
     EmployeeListView,
     EmployeeDetailView,
     EmployeeCreateView,
-    EmployeeBrandUpdateView,
+    EmployeeNumberUpdateView,
     EmployeeDeleteView,
     BrandListView,
     BrandCreateView,
     BrandUpdateView,
     BrandDeleteView,
-    toggle_assign_to_car,
 )
 
 urlpatterns = [
@@ -38,7 +37,7 @@ urlpatterns = [
     ),
     path(
         "brand/<int:pk>/delete/",
-        BrandDeleteView.as_viewProduct,
+        BrandDeleteView.as_view(),
         name="brand-delete",
     ),
     path("products/", ProductListView.as_view(), name="product-list"),
@@ -46,11 +45,6 @@ urlpatterns = [
     path("products/create/", ProductCreateView.as_view(), name="product-create"),
     path("products/<int:pk>/update/", ProductUpdateView.as_view(), name="product-update"),
     path("products/<int:pk>/delete/", ProductDeleteView.as_view(), name="product-delete"),
-    path(
-        "products/<int:pk>/toggle-assign/",
-        toggle_assign_to_car,
-        name="toggle-product-assign",
-    ),
     path("employees/", EmployeeListView.as_view(), name="employee-list"),
     path(
         "employees/<int:pk>/", EmployeeDetailView.as_view(), name="employee-detail"
@@ -62,8 +56,8 @@ urlpatterns = [
     path("employees/create/", EmployeeCreateView.as_view(), name="employee-create"),
     path(
         "employees/<int:pk>/update/",
-        EmployeeBrandUpdateView.as_view(),
-        name="employee-brand",
+        EmployeeNumberUpdateView.as_view(),
+        name="employee-number",
     ),
     path(
         "employees/<int:pk>/delete/",
