@@ -25,6 +25,7 @@ class Category(models.Model):
 
 class Employee(AbstractUser):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+    employee_number = models.CharField(max_length=255, unique=True)
 
     class Meta:
         verbose_name = "employee"
