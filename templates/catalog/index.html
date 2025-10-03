@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>PC Components Store</h1>
+  <p>Welcome to the best place to find your next upgrade!</p>
+
+  <h2>Store Overview</h2>
+  <p>We currently have the following in our catalog:</p>
+  <ul>
+    <li><strong>Products available:</strong> {{ num_products }}</li>
+    <li><strong>Employees ready to help:</strong> {{ num_employees }}</li>
+    <li><strong>Brands we work with:</strong> {{ num_brands }}</li>
+  </ul>
+
+  <p>You have visited this page
+    {{ num_visits }} time{{ num_visits|pluralize }}.
+  </p>
+{% endblock %}
