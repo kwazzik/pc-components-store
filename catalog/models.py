@@ -24,7 +24,13 @@ class Category(models.Model):
 
 
 class Employee(AbstractUser):
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+    brand = models.ForeignKey(
+        Brand,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="employees"
+    )
     employee_number = models.CharField(max_length=255, unique=True)
 
     class Meta:
