@@ -3,6 +3,7 @@
 {% block content %}
   <h1>
     Username: {{ employee.username }}
+    <a href="{% url "catalog:employee-list" %}" class="btn btn-primary link-to-page">Back</a>
     <a href="{% url 'catalog:employee-delete' pk=employee.id %}" class="btn btn-danger link-to-page">
       Delete
     </a>
