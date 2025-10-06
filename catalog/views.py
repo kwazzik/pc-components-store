@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -11,7 +10,7 @@ from .forms import (EmployeeCreationForm, ProductForm, EmployeeNumberUpdateForm,
 
 
 @login_required
-def index(request, num_brands=None):
+def index(request):
     """View function for the home page of the site."""
 
     num_employees = Employee.objects.count()
@@ -24,7 +23,7 @@ def index(request, num_brands=None):
     context = {
         "num_employees": num_employees,
         "num_products": num_products,
-        "num_brands": num_brands,
+        "num_brands": num_brand,
         "num_visits": num_visits + 1,
     }
 
