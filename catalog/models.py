@@ -5,6 +5,7 @@ from django.urls import reverse
 
 class Brand(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         ordering = ["name"]
