@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Manufacturer List
+    <a href="{% url 'catalog:brand-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+  <form method="get" action="{% url 'catalog:brand-list' %}" class="form-inline">
+    {{ search_form_brand|crispy }}
+    <button type="submit" class="btn btn-secondary">Search</button>
+  </form>
+  {% if brand_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+
+      {% for brand in brand_list %}
+        <tr>
+          <td>
+            {{ brand.id }}
+          </td>
+          <td>
+            {{ brand.name }}
+          </td>
+          <td>
+            {{ brand.country }}
+          </td>
+          <td>
+            <a href="{% url 'catalog:brand-update' pk=brand.id %}">
+              Update
+            </a>
+          </td>
+          <td>
+            <a style="color: red"
+               href="{% url 'catalog:brand-delete' pk=brand.id %}">
+              Delete
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+    <p>There are no brands in the service.</p>
+  {% endif %}
+{% endblock %}
