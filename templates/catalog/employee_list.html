@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Employee List
+    <a href="{% url 'catalog:employee-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+  <form method="get" action="{% url 'catalog:employee-list' %}" class="form-inline">
+    {{ search_form_employee|crispy }}
+    <button type="submit" class="btn btn-secondary">Search</button>
+  </form>
+  {% if employee_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Employee number</th>
+      </tr>
+      {% for employee in employee_list %}
+        <tr>
+          <td>{{ employee.id }}</td>
+          <td><a href="{{ employee.get_absolute_url }}">{{ employee.username }} {% if user == employee %} (Me){% endif %}</a>
+          </td>
+          <td>{{ employee.first_name }}</td>
+          <td>{{ employee.last_name }}</td>
+          <td>{{ employee.employee_number }}</td>
+        </tr>
+      {% endfor %}
+
+    </table>
+  {% else %}
+    <p>There are no employees in the store.</p>
+  {% endif %}
+{% endblock %}

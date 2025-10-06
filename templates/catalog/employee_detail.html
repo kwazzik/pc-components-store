@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Username: {{ employee.username }}
+    <a href="{% url 'catalog:employee-delete' pk=employee.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+
+    <a href="{% url 'catalog:employee-number' pk=employee.id %}" class="btn btn-secondary link-to-page">
+      Update employee number
+    </a>
+  </h1>
+
+  <p><strong>First name:</strong> {{ employee.first_name }}</p>
+  <p><strong>Last name:</strong> {{ employee.last_name }}</p>
+  <p><strong>License number:</strong> {{ employee.license_number }}</p>
+  <p><strong>Is staff:</strong> {{ employee.is_staff }}</p>
+
+  <div class="ml-3">
+    <h4>Brands</h4>
+
+    {% for brand in employee.brand.all %}
+        <hr>
+        <p><strong>Name:</strong> {{ brand.name }}</p>
+        <p><strong>Country:</strong> {{ brand.country }}</p>
+        <p class="text-muted"><strong>Id:</strong> {{car.id}}</p>
+
+    {% empty %}
+      <p>No brands!</p>
+    {% endfor %}
+  </div>
+{% endblock %}
