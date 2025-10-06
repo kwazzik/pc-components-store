@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Brand: {{ product.brand.name }}</h1>
+  <br>
+  <h5>
+    <strong>Name:</strong> {{ product.name }},
+    <a href="{% url 'catalog:product-delete' pk=product.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+
+    <a href="{% url 'catalog:product-update' pk=product.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+  </h5>
+  <h5><strong>Price:</strong> {{ product.price }}</h5>
+  <h5><strong>Amount:</strong> {{ product.amount }}</h5>
+{% endblock %}

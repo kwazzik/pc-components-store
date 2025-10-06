@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Product list
+    <a href="{% url 'catalog:product-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+  <form method="get" action="{% url 'catalog:product-list' %}" class="form-inline">
+    {{ search_form_product|crispy }}
+    <button type="submit" class="btn btn-secondary">Search</button>
+  </form>
+
+  {% if product_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>In stock</th>
+        <th>Category</th>
+      </tr>
+      {% for product in product_list %}
+        <tr>
+          <td><a href="{% url "catalog:product-detail" pk=product.id %} ">{{ product.id }}</a></td>
+          <td>{{ product.brand.name }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.in_stock }}</td>
+          <td>{{ product.category.name }}</td>
+        </tr>
+      {% endfor %}
+
+    </table>
+  {% else %}
+    <p>There are no products in catalog</p>
+  {% endif %}
+{% endblock %}
