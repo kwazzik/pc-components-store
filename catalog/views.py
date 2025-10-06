@@ -82,10 +82,12 @@ class ProductListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Product.objects.filter().order_by("id")
+        queryset = Product.objects.all().order_by("id")
         form = ProductSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(name__icontains=form.cleaned_data["name"])
+            name = form.cleaned_data.get("name")
+            if name:
+                return queryset.filter(name__icontains=name)
         return queryset
 
 
