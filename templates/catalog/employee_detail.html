@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container py-5 mt-7">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="h3 text-gradient text-dark font-weight-bold">Employee: {{ employee.username }}</h1>
+      <div>
+        <a href="{% url 'catalog:employee-list' %}" class="btn btn-outline-primary btn-sm me-2">
+          <i class="material-icons">arrow_back</i> Back
+        </a>
+        <a href="{% url 'catalog:employee-delete' pk=employee.id %}" class="btn btn-outline-danger btn-sm me-2">
+          <i class="material-icons">delete</i> Delete
+        </a>
+        <a href="{% url 'catalog:employee-number' pk=employee.id %}" class="btn btn-outline-secondary btn-sm">
+          <i class="material-icons">edit</i> Update employee number
+        </a>
+      </div>
+    </div>
+
+    <div class="card shadow-lg border-radius-xl">
+      <div class="card-header bg-gradient-light text-dark">
+        <h4 class="mb-0"><strong>{{ employee.username }}</strong></h4>
+      </div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-sm-4">First name</dt>
+          <dd class="col-sm-8">{{ employee.first_name }}</dd>
+
+          <dt class="col-sm-4">Last name</dt>
+          <dd class="col-sm-8">{{ employee.last_name }}</dd>
+
+          <dt class="col-sm-4">License number</dt>
+          <dd class="col-sm-8">{{ employee.license_number }}</dd>
+
+          <dt class="col-sm-4">Is staff</dt>
+          <dd class="col-sm-8">{{ employee.is_staff|yesno:"Yes,No" }}</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card shadow-lg border-radius-xl mt-4">
+      <div class="card-header bg-gradient-light text-dark">
+        <h4 class="mb-0">Brands</h4>
+      </div>
+      <div class="card-body">
+        {% if employee.brand.all %}
+          {% for brand in employee.brand.all %}
+            <div class="mb-3 border-bottom pb-3">
+              <p><strong>Name:</strong> {{ brand.name }}</p>
+              <p><strong>Country:</strong> {{ brand.country }}</p>
+              <p class="text-muted"><strong>ID:</strong> {{ brand.id }}</p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No brands!</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
