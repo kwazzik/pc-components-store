@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,21 +12,21 @@ from .forms import (EmployeeCreationForm, ProductForm, EmployeeNumberUpdateForm,
 
 @login_required
 def index(request):
-    """View function for the home page of the site."""
-
-    num_employees = Employee.objects.count()
     num_products = Product.objects.count()
-    num_brand = Brand.objects.count()
+    num_employees = Employee.objects.count()
+    num_brands = Brand.objects.count()
 
-    num_visits = request.session.get("num_visits", 0)
-    request.session["num_visits"] = num_visits + 1
+    # Считаем визиты
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
 
-    context = {
-        "num_employees": num_employees,
-        "num_products": num_products,
-        "num_brands": num_brand,
-        "num_visits": num_visits + 1,
-    }
+    return render(request, 'catalog/index.html', {
+        'num_products': num_products,
+        'num_employees': num_employees,
+        'num_brands': num_brands,
+        'num_visits': num_visits,
+    })
+
 
     return render(request, "catalog/index.html", context=context)
 
@@ -153,3 +154,14 @@ class EmployeeNumberUpdateView(LoginRequiredMixin, generic.UpdateView):
 class EmployeeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Employee
     success_url = reverse_lazy("")
+
+
+def register_view(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")  # или куда хочешь
+    else:
+        form = UserCreationForm()
+    return render(request, "registration/register.html", {"form": form})

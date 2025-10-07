@@ -1,3 +1,4 @@
+import registration
 from django.urls import path
 
 from .views import (
@@ -16,6 +17,7 @@ from .views import (
     BrandCreateView,
     BrandUpdateView,
     BrandDeleteView,
+    register_view
 )
 
 urlpatterns = [
@@ -64,6 +66,7 @@ urlpatterns = [
         EmployeeDeleteView.as_view(),
         name="employee-delete",
     ),
+    path("register/", register_view, name="register"),
 ]
 
 app_name = "catalog"

@@ -1,0 +1,147 @@
+{% load static %}
+
+
+<!-- Navbar -->
+<div class="container position-sticky z-index-sticky top-0">
+  <div class="row">
+    <div class="col-12">
+      <nav
+        class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 p-2 start-0 end-0 mx-4">
+        <div class="container-fluid px-0">
+          <a class="navbar-brand font-weight-bolder ms-sm-3 text-sm"
+             href="{% url "catalog:index" %}" rel="tooltip"
+             title="Designed and Coded by Creative Tim" data-placement="bottom">
+            PC Components Store
+          </a>
+          <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+                  aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon mt-2">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </span>
+          </button>
+          <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
+            <ul class="navbar-nav navbar-nav-hover ms-auto">
+
+              <!-- Brands -->
+              <li class="nav-item dropdown dropdown-hover mx-2">
+                <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold"
+                   id="dropdownMenuBrands" data-bs-toggle="dropdown" aria-expanded="false">
+                  Brands
+                  <img src="{% static 'material-kit/assets/img/down-arrow-dark.svg' %}" alt="down-arrow"
+                       class="arrow ms-auto ms-md-2">
+                </a>
+                <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
+                     aria-labelledby="dropdownMenuBrands">
+                  <div class="d-none d-lg-block">
+                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                      Brands Category
+                    </h6>
+                    <a href="{% url 'catalog:brand-list' %}" class="dropdown-item border-radius-md">
+                      <span>Brands List</span>
+                    </a>
+                  </div>
+                </div>
+              </li>
+
+              <!-- Products -->
+              <li class="nav-item dropdown dropdown-hover mx-2">
+                <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold"
+                   id="dropdownMenuProducts" data-bs-toggle="dropdown" aria-expanded="false">
+                  Products
+                  <img src="{% static 'material-kit/assets/img/down-arrow-dark.svg' %}" alt="down-arrow"
+                       class="arrow ms-auto ms-md-2">
+                </a>
+                <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
+                     aria-labelledby="dropdownMenuProducts">
+                  <div class="d-none d-lg-block">
+                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                      Products Category
+                    </h6>
+                    <a href="{% url 'catalog:product-list' %}" class="dropdown-item border-radius-md">
+                      <span>Products List</span>
+                    </a>
+                  </div>
+                </div>
+              </li>
+
+              <!-- Employees -->
+              <li class="nav-item dropdown dropdown-hover mx-2">
+                <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold"
+                   id="dropdownMenuEmployees" data-bs-toggle="dropdown" aria-expanded="false">
+                  Employees
+                  <img src="{% static 'material-kit/assets/img/down-arrow-dark.svg' %}" alt="down-arrow"
+                       class="arrow ms-auto ms-md-2">
+                </a>
+                <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
+                     aria-labelledby="dropdownMenuEmployees">
+                  <div class="d-none d-lg-block">
+                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                      Employees Category
+                    </h6>
+                    <a href="{% url 'catalog:employee-list' %}" class="dropdown-item border-radius-md">
+                      <span>Employees List</span>
+                    </a>
+                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
+                      Account
+                    </h6>
+                    <a href="{% url 'login' %}" class="dropdown-item border-radius-md">
+                      <span>Sign In</span>
+                    </a>
+                  </div>
+
+                  <div class="d-lg-none">
+                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                      Landing Pages
+                    </h6>
+                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
+                      Account
+                    </h6>
+                    <a href="{% url 'login' %}" class="dropdown-item border-radius-md">
+                      <span>Sign In</span>
+                    </a>
+                  </div>
+                </div>
+              </li>
+
+              <!-- Auth buttons -->
+              {% if request.user.is_authenticated %}
+                <li class="nav-item ms-lg-auto">
+                  <form action="{% url 'logout' %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link nav-link nav-link-icon me-2 mt-2 mb-2 p-0 align-middle"
+                            style="border:none; background:none;">
+                      <svg class="svg-inline--fa fa-arrow-right-from-bracket me-1" aria-hidden="true" focusable="false"
+                           data-prefix="fas" data-icon="arrow-right-from-bracket" role="img"
+                           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="" width="16"
+                           height="16" fill="currentColor">
+                        <path fill="currentColor"
+                              d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"></path>
+                      </svg>
+                      <span class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Logout">Logout</span>
+                    </button>
+                  </form>
+
+
+                </li>
+              {% else %}
+                <li class="nav-item ms-lg-auto">
+                  <a class="nav-link nav-link-icon me-2" href="{% url 'login' %}">
+                    <i class="fa fa-sign-in me-1"></i>
+                    <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                       data-bs-placement="bottom" title="Sign In">Sign In</p>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+    </div>
+  </div>
+</div>

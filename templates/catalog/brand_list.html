@@ -2,53 +2,133 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>
-    Brand List
-    <a href="{% url 'catalog:brand-create' %}" class="btn btn-primary link-to-page">
-      Create
-    </a>
-  </h1>
-  <form method="get" action="{% url 'catalog:brand-list' %}" class="form-inline">
-    {{ search_form_brand|crispy }}
-    <button type="submit" class="btn btn-secondary">Search</button>
-  </form>
-  {% if brand_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Country</th>
-        <th>Update</th>
-        <th>Delete</th>
-      </tr>
+  <div class="container py-5 mt-7">
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-8">
+        <h2 class="mb-0 text-gradient text-primary font-weight-bold">Brand List</h2>
+      </div>
+      <div class="col-md-4 text-end">
+        <a href="{% url 'catalog:brand-create' %}" class="btn btn-primary btn-sm">
+          <i class="fas fa-plus me-1"></i> Create Brand +
+        </a>
+      </div>
+    </div>
 
-      {% for brand in brand_list %}
-        <tr>
-          <td>
-            {{ brand.id }}
-          </td>
-          <td>
-            {{ brand.name }}
-          </td>
-          <td>
-            {{ brand.country }}
-          </td>
-          <td>
-            <a href="{% url 'catalog:brand-update' pk=brand.id %}">
-              Update
-            </a>
-          </td>
-          <td>
-            <a style="color: red"
-               href="{% url 'catalog:brand-delete' pk=brand.id %}">
-              Delete
-            </a>
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
+    <!-- Search Form -->
+    <div class="card shadow-sm border-radius-xl mb-4">
+      <div>
+        <form method="get" action="{% url 'catalog:brand-list' %}"
+              class="row g-2 align-items-center justify-content-center">
+          <div class="col-md-6 col-sm-8">
+            <div class="input-group input-group-outline input-group-sm">
+              {{ search_form_brand|crispy }}
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-4">
+            <button type="submit" class="btn btn-sm btn-outline-primary w-100 mt-3">
+              <i class="fas fa-search me-1"></i> Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-  {% else %}
-    <p>There are no brands in the service.</p>
-  {% endif %}
+    {% if brand_list %}
+      <div class="card shadow-lg border-radius-xl">
+        <div class="card-body px-4 py-4">
+          <div class="table-responsive">
+            <table class="table align-items-center mb-0">
+              <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Name</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Country</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Update</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Delete</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for brand in brand_list %}
+                <tr>
+                  <td class="text-sm">{{ brand.id }}</td>
+                  <td class="text-sm">{{ brand.name }}</td>
+                  <td class="text-sm">{{ brand.country }}</td>
+                  <td>
+                    <a href="{% url 'catalog:brand-update' pk=brand.id %}" class="text-primary font-weight-bold">
+                      Update
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{% url 'catalog:brand-delete' pk=brand.id %}" class="text-danger font-weight-bold">
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          {% if is_paginated %}
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center mt-4">
+                {% if page_obj.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link rounded-0" href="?page={{ page_obj.previous_page_number }}"
+                       aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="visually-hidden">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+          <span class="page-link rounded-0" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="visually-hidden">Previous</span>
+          </span>
+                  </li>
+                {% endif %}
+
+                {% for num in paginator.page_range %}
+                  {% if page_obj.number == num %}
+                    <li class="page-item active" aria-current="page">
+                      <span class="page-link rounded-0">{{ num }}</span>
+                    </li>
+                  {% else %}
+                    <li class="page-item">
+                      <a class="page-link rounded-0" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                  <li class="page-item">
+                    <a class="page-link rounded-0" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="visually-hidden">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+          <span class="page-link rounded-0" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="visually-hidden">Next</span>
+          </span>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+          {% endif %}
+
+          <!-- /Pagination -->
+
+        </div>
+      </div>
+    {% else %}
+      <div class="alert alert-secondary text-center" role="alert">
+        There are no brands in the service.
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

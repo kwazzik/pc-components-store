@@ -2,40 +2,136 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>
-    Product list
-    <a href="{% url 'catalog:product-create' %}" class="btn btn-primary link-to-page">
-      Create
-    </a>
-  </h1>
-  <form method="get" action="{% url 'catalog:product-list' %}" class="form-inline">
-    {{ search_form_product|crispy }}
-    <button type="submit" class="btn btn-secondary">Search</button>
-  </form>
+  <div class="container py-5 mt-7">
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-8">
+        <h2 class="mb-0 text-gradient text-primary font-weight-bold">Product List</h2>
+      </div>
+      <div class="col-md-4 text-end">
+        <a href="{% url 'catalog:product-create' %}" class="btn btn-primary btn-sm">
+          <i class="fas fa-plus me-1"></i> Create Product +
+        </a>
+      </div>
+    </div>
 
-  {% if product_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Brand</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>In stock</th>
-        <th>Category</th>
-      </tr>
-      {% for product in product_list %}
-        <tr>
-          <td><a href="{% url "catalog:product-detail" pk=product.id %} ">{{ product.id }}</a></td>
-          <td>{{ product.brand.name }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
-          <td>{{ product.in_stock }}</td>
-          <td>{{ product.category.name }}</td>
-        </tr>
-      {% endfor %}
+    <!-- Search Form -->
+    <div class="card shadow-sm border-radius-xl mb-4">
+      <div>
+        <form method="get" action="{% url 'catalog:product-list' %}"
+              class="row g-2 align-items-center justify-content-center">
+          <div class="col-md-6 col-sm-8">
+            <div class="input-group input-group-outline input-group-sm">
+              {{ search_form_product|crispy }}
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-4">
+            <button type="submit" class="btn btn-sm btn-outline-primary w-100 mt-3">
+              <i class="fas fa-search me-1"></i> Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-    </table>
-  {% else %}
-    <p>There are no products in catalog</p>
-  {% endif %}
+    {% if product_list %}
+      <div class="card shadow-lg border-radius-xl">
+        <div class="card-body px-4 py-4">
+          <div class="table-responsive">
+            <table class="table align-items-center mb-0">
+              <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Brand</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Name</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Price</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Stock</th>
+                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Category</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for product in product_list %}
+                <tr>
+                  <td>
+                    <a href="{% url "catalog:product-detail" pk=product.id %}"
+                       class="text-primary text-sm font-weight-bold">
+                      #{{ product.id }}
+                    </a>
+                  </td>
+                  <td class="text-sm">{{ product.brand.name }}</td>
+                  <td class="text-sm">{{ product.name }}</td>
+                  <td class="text-sm">${{ product.price }}</td>
+                  <td class="text-sm">
+                    {% if product.in_stock %}
+                      <span class="badge bg-gradient-success">In Stock</span>
+                    {% else %}
+                      <span class="badge bg-gradient-danger">Out of Stock</span>
+                    {% endif %}
+                  </td>
+                  <td class="text-sm">{{ product.category.name }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          {% if is_paginated %}
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center mt-4">
+                {% if page_obj.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="visually-hidden">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <span class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="visually-hidden">Previous</span>
+                    </span>
+                  </li>
+                {% endif %}
+
+                {% for num in paginator.page_range %}
+                  {% if page_obj.number == num %}
+                    <li class="page-item active" aria-current="page">
+                      <span class="page-link">{{ num }}</span>
+                    </li>
+                  {% else %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="visually-hidden">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <span class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="visually-hidden">Next</span>
+                    </span>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+          {% endif %}
+          <!-- /Pagination -->
+
+        </div>
+      </div>
+    {% else %}
+      <div class="alert alert-secondary text-center" role="alert">
+        There are no products in the catalog.
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

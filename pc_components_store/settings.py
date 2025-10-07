@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'crispy_bootstrap4',
     'crispy_forms',
     'catalog',
+
 ]
 
 MIDDLEWARE = [
@@ -130,8 +132,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'upload'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
-STATICFILES_DIRS = (BASE_DIR / "static",)
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
@@ -140,5 +144,4 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGOUT_REDIRECT_URL = '/'
 

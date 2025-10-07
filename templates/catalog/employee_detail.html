@@ -1,34 +1,60 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>
-    Username: {{ employee.username }}
-    <a href="{% url "catalog:employee-list" %}" class="btn btn-primary link-to-page">Back</a>
-    <a href="{% url 'catalog:employee-delete' pk=employee.id %}" class="btn btn-danger link-to-page">
-      Delete
-    </a>
+  <div class="container py-5 mt-7">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="h3 text-gradient text-dark font-weight-bold">Employee: {{ employee.username }}</h1>
+      <div>
+        <a href="{% url 'catalog:employee-list' %}" class="btn btn-outline-primary btn-sm me-2">
+          <i class="material-icons">arrow_back</i> Back
+        </a>
+        <a href="{% url 'catalog:employee-delete' pk=employee.id %}" class="btn btn-outline-danger btn-sm me-2">
+          <i class="material-icons">delete</i> Delete
+        </a>
+        <a href="{% url 'catalog:employee-number' pk=employee.id %}" class="btn btn-outline-secondary btn-sm">
+          <i class="material-icons">edit</i> Update employee number
+        </a>
+      </div>
+    </div>
 
-    <a href="{% url 'catalog:employee-number' pk=employee.id %}" class="btn btn-secondary link-to-page">
-      Update employee number
-    </a>
-  </h1>
+    <div class="card shadow-lg border-radius-xl">
+      <div class="card-header bg-gradient-light text-dark">
+        <h4 class="mb-0"><strong>{{ employee.username }}</strong></h4>
+      </div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-sm-4">First name</dt>
+          <dd class="col-sm-8">{{ employee.first_name }}</dd>
 
-  <p><strong>First name:</strong> {{ employee.first_name }}</p>
-  <p><strong>Last name:</strong> {{ employee.last_name }}</p>
-  <p><strong>License number:</strong> {{ employee.license_number }}</p>
-  <p><strong>Is staff:</strong> {{ employee.is_staff }}</p>
+          <dt class="col-sm-4">Last name</dt>
+          <dd class="col-sm-8">{{ employee.last_name }}</dd>
 
-  <div class="ml-3">
-    <h4>Brands</h4>
+          <dt class="col-sm-4">License number</dt>
+          <dd class="col-sm-8">{{ employee.license_number }}</dd>
 
-    {% for brand in employee.brand.all %}
-        <hr>
-        <p><strong>Name:</strong> {{ brand.name }}</p>
-        <p><strong>Country:</strong> {{ brand.country }}</p>
-        <p class="text-muted"><strong>Id:</strong> {{car.id}}</p>
+          <dt class="col-sm-4">Is staff</dt>
+          <dd class="col-sm-8">{{ employee.is_staff|yesno:"Yes,No" }}</dd>
+        </dl>
+      </div>
+    </div>
 
-    {% empty %}
-      <p>No brands!</p>
-    {% endfor %}
+    <div class="card shadow-lg border-radius-xl mt-4">
+      <div class="card-header bg-gradient-light text-dark">
+        <h4 class="mb-0">Brands</h4>
+      </div>
+      <div class="card-body">
+        {% if employee.brand.all %}
+          {% for brand in employee.brand.all %}
+            <div class="mb-3 border-bottom pb-3">
+              <p><strong>Name:</strong> {{ brand.name }}</p>
+              <p><strong>Country:</strong> {{ brand.country }}</p>
+              <p class="text-muted"><strong>ID:</strong> {{ brand.id }}</p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No brands!</p>
+        {% endif %}
+      </div>
+    </div>
   </div>
 {% endblock %}
