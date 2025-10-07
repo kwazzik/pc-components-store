@@ -21,7 +21,7 @@ class EmployeeCreationForm(UserCreationForm):
             "last_name",
         )
 
-    def clean_employee_number(self):  # this logic is optional, but possible
+    def clean_employee_number(self):
         return validate_employee_number(self.cleaned_data["employee_number"])
 
 
