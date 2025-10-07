@@ -30,7 +30,7 @@ class EmployeeNumberUpdateForm(forms.ModelForm):
         model = Employee
         fields = ["employee_number"]
 
-    def clean_brand(self):
+    def clean_employee_number(self):
         return validate_employee_number(self.cleaned_data["employee_number"])
 
 
