@@ -46,7 +46,7 @@ def validate_employee_number(employee_number):
 
 
 class ProductSearchForm(forms.Form):
-    model = forms.CharField(
+    name = forms.CharField(
         max_length=255,
         required=False,
         label="",
