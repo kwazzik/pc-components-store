@@ -27,8 +27,6 @@ def index(request):
     })
 
 
-    return render(request, "catalog/index.html", context=context)
-
 
 class BrandListView(LoginRequiredMixin, generic.ListView):
     model = Brand
