@@ -46,7 +46,7 @@ $rfs-rem-value: 16 !default;
 // Safari iframe resize bug: https://github.com/twbs/rfs/issues/14
 $rfs-safari-iframe-resize-bug-fix: false !default;
 
-// Disable RFS by setting $enable-rfs to false
+// Disable RFS by settings $enable-rfs to false
 $enable-rfs: true !default;
 
 // Cache $rfs-base-value unit
