@@ -16,7 +16,6 @@ def index(request):
     num_employees = Employee.objects.count()
     num_brands = Brand.objects.count()
 
-    # Считаем визиты
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
@@ -27,8 +26,6 @@ def index(request):
         'num_visits': num_visits,
     })
 
-
-    return render(request, "catalog/index.html", context=context)
 
 
 class BrandListView(LoginRequiredMixin, generic.ListView):
@@ -161,7 +158,7 @@ def register_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("login")  # или куда хочешь
+            return redirect("login")
     else:
         form = UserCreationForm()
     return render(request, "registration/register.html", {"form": form})

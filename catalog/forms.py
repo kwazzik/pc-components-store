@@ -21,7 +21,7 @@ class EmployeeCreationForm(UserCreationForm):
             "last_name",
         )
 
-    def clean_employee_number(self):  # this logic is optional, but possible
+    def clean_employee_number(self):
         return validate_employee_number(self.cleaned_data["employee_number"])
 
 
@@ -30,7 +30,7 @@ class EmployeeNumberUpdateForm(forms.ModelForm):
         model = Employee
         fields = ["employee_number"]
 
-    def clean_brand(self):
+    def clean_employee_number(self):
         return validate_employee_number(self.cleaned_data["employee_number"])
 
 
@@ -46,7 +46,7 @@ def validate_employee_number(employee_number):
 
 
 class ProductSearchForm(forms.Form):
-    model = forms.CharField(
+    name = forms.CharField(
         max_length=255,
         required=False,
         label="",

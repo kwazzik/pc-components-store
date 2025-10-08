@@ -52,7 +52,7 @@ class Product(models.Model):
     in_stock = models.BooleanField(default=False)
     amount = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
-    managers = models.ManyToManyField(Employee, related_name="products")
+    managers = models.ManyToManyField(Employee, related_name="products", blank=True)
 
     def __str__(self):
         return self.name

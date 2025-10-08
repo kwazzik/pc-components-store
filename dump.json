@@ -1,0 +1,78 @@
+[
+{
+    "model": "catalog.brand",
+    "pk": 1,
+    "fields": {
+        "name": "AMD",
+        "country": "Tailand"
+    }
+},
+{
+    "model": "catalog.brand",
+    "pk": 2,
+    "fields": {
+        "name": "Nvidia",
+        "country": null
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "Videocard"
+    }
+},
+{
+    "model": "catalog.employee",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$0ONFNM1S2Ols3oJ93crKEd$jlrY1q0VabfKTFXyn2+I215NRqEaSLa8LiXd7IEhLTA=",
+        "last_login": "2025-10-08T06:42:01.084Z",
+        "is_superuser": true,
+        "username": "kwazzik",
+        "first_name": "",
+        "last_name": "",
+        "email": "miss@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-10-06T01:08:39.135Z",
+        "brand": null,
+        "employee_number": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "catalog.employee",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$QyFoxWWPXFAvJ85YID8Ggz$e+rv9Hg8DpOhY7PS7c7CkYhNKx/1IN5I3MvGi1eFAOg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser",
+        "first_name": "Mike",
+        "last_name": "Pityo",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-10-07T13:18:05.521Z",
+        "brand": null,
+        "employee_number": "EMP12345",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "name": "Geforce RTX 2080",
+        "brand": 2,
+        "price": "1099.00",
+        "in_stock": true,
+        "amount": 1,
+        "category": 1,
+        "managers": []
+    }
+}
+]
