@@ -22,3 +22,5 @@ DATABASES = {
         },
     }
 }
+
+ROOT_URLCONF = "pc_components_store.urls"
