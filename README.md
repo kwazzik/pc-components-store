@@ -47,7 +47,7 @@ PC Components Store is a web application for managing a store of PC components. 
     python manage.py runserver
     ```
 
-6. **Open your browser** and go to `http://127.0.0.1:8000/` to see the app.
+6. **Open your browser** and go to `https://pc-components-store-z0y2.onrender.com` to see the app.
 
 ---
 
